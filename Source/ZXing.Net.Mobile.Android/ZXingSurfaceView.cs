@@ -9,10 +9,11 @@ namespace ZXing.Mobile
 {
     public class ZXingSurfaceView : SurfaceView, ISurfaceHolderCallback, IScannerView, IScannerSessionHost
     {
-        public ZXingSurfaceView(Context context, MobileBarcodeScanningOptions options)
+        public ZXingSurfaceView(Context context, MobileBarcodeScanningOptions options, Action permissionFaultCallback)
             : base(context)
         {
             ScanningOptions = options ?? new MobileBarcodeScanningOptions();
+            _permissionFaultCallback = permissionFaultCallback;
             Init();
         }
 
@@ -22,7 +23,8 @@ namespace ZXing.Mobile
             Init();
         }
 
-		bool addedHolderCallback = false;
+        readonly Action _permissionFaultCallback;
+        bool addedHolderCallback = false;
 
         private void Init()
         {

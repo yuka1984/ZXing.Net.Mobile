@@ -101,7 +101,7 @@ namespace ZXing.Mobile
 
             SetContentView (Resource.Layout.zxingscanneractivitylayout);
 
-            scannerFragment = new ZXingScannerFragment ();
+            scannerFragment = new ZXingScannerFragment (() => CancelRequestedHandler?.Invoke());
             scannerFragment.CustomOverlayView = CustomOverlayView;
             scannerFragment.UseCustomOverlayView = UseCustomOverlayView;
             scannerFragment.TopText = TopText;

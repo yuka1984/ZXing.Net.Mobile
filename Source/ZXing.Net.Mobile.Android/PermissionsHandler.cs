@@ -15,11 +15,11 @@ namespace ZXing.Net.Mobile.Android
     {
         static TaskCompletionSource<bool> requestCompletion = null;
 
-        public static Task PermissionRequestTask
+        public static Task<bool> PermissionRequestTask
         {
             get
             {
-                return requestCompletion?.Task ?? Task.CompletedTask;
+                return requestCompletion?.Task ?? Task.FromResult(false);
             }
         }
 

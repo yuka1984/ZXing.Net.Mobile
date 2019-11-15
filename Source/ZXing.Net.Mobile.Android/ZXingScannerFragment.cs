@@ -8,14 +8,16 @@ namespace ZXing.Mobile
 {
     public class ZXingScannerFragment : Fragment, IZXingScanner<View>, IScannerView
 	{
-	    public ZXingScannerFragment() 
+	    public ZXingScannerFragment(Action permissionFaultCallback) 
         {
             UseCustomOverlayView = false;
+            _permissionFaultCallback = permissionFaultCallback;
 	    }
             
 		FrameLayout frame;
+        readonly Action _permissionFaultCallback;
 
-	    public override View OnCreateView (LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle)
+        public override View OnCreateView (LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle)
 		{
 			frame = (FrameLayout)layoutInflater.Inflate(Resource.Layout.zxingscannerfragmentlayout, viewGroup, false);
 
@@ -23,7 +25,7 @@ namespace ZXing.Mobile
 
             try
             {
-                scanner = new ZXingSurfaceView (this.Activity, ScanningOptions);
+                scanner = new ZXingSurfaceView (this.Activity, ScanningOptions, _permissionFaultCallback);
 
                 frame.AddView(scanner, layoutParams);
 
